@@ -27,7 +27,6 @@ export class AuthService {
     password: string;
   }) {
     const { name, email, password } = registerRequest;
-    console.log({ name, password, email });
     return new Promise((resolve, reject) => {
       return this.userPool.signUp(
         name,
@@ -35,10 +34,6 @@ export class AuthService {
         [new CognitoUserAttribute({ Name: 'email', Value: email })],
         null,
         (err, result) => {
-          console.log(
-            '🚀 ~ file: auth.service.ts ~ line 38 ~ AuthService ~ returnnewPromise ~ err',
-            err,
-          );
           if (!result) {
             reject(err);
           } else {
