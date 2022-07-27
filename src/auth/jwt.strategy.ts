@@ -7,26 +7,26 @@ import { AuthConfig } from './auth.config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(
-    private readonly authService: AuthService,
-    private authConfig: AuthConfig,
-  ) {
-    super({
-      secretOrKeyProvider: passportJwtSecret({
-        cache: true,
-        rateLimit: true,
-        jwksRequestsPerMinute: 5,
-        jwksUri: `${authConfig.authority}/.well-known/jwks.json`,
-      }),
+    constructor(
+        private readonly authService: AuthService,
+        private authConfig: AuthConfig
+    ) {
+        super({
+            secretOrKeyProvider: passportJwtSecret({
+                cache: true,
+                rateLimit: true,
+                jwksRequestsPerMinute: 5,
+                jwksUri: `${authConfig.authority}/.well-known/jwks.json`
+            }),
 
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: authConfig.clientId,
-      issuer: authConfig.authority,
-      algorithms: ['RS256'],
-    });
-  }
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            audience: authConfig.clientId,
+            issuer: authConfig.authority,
+            algorithms: ['RS256']
+        });
+    }
 
-  public async validate(payload: any) {
-    return !!payload.sub;
-  }
+    public async validate(payload: any) {
+        return !!payload.sub;
+    }
 }
