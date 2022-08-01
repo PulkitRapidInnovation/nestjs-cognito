@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { AuthConfig } from './auth.config';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
+import { AuthConfig } from './auth.config';
+import { AuthController } from './auth.controller';
+import { CognitoOauthModule } from './cognito/cognito-oauth.module';
 
 @Module({
-    imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-    providers: [AuthConfig, AuthService, JwtStrategy],
-    controllers: [AuthController]
+    controllers: [AuthController],
+    imports: [PassportModule, CognitoOauthModule],
+    providers:[AuthConfig]
 })
 export class AuthModule {}

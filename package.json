@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.137.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
@@ -28,10 +29,12 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "amazon-cognito-identity-js": "^5.2.10",
+    "aws-sdk": "^2.1185.0",
     "axios": "^0.27.2",
     "jwk-to-pem": "^2.0.5",
     "jwks-rsa": "^2.1.4",
     "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
