@@ -18,27 +18,36 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:generate": "ts-node node_modules/typeorm/cli.js migration:generate -f ormconfig -d src/migrations -n",
+    "migration:run": "ts-node node_modules/typeorm/cli.js migration:run -f ormconfig"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.137.0",
+    "@nestjs/apollo": "^10.0.19",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/graphql": "^10.0.21",
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.0",
     "amazon-cognito-identity-js": "^5.2.10",
+    "apollo-server-core": "^3.10.0",
+    "apollo-server-express": "^3.10.0",
     "aws-sdk": "^2.1185.0",
     "axios": "^0.27.2",
     "jwk-to-pem": "^2.0.5",
     "jwks-rsa": "^2.1.4",
+    "mysql2": "^2.3.3",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.7"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
