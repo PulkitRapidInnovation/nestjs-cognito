@@ -89,11 +89,11 @@ export class CognitoOauthStrategy extends PassportStrategy(
 
         // Here a custom User object is returned. In the the repo I'm using a UsersService with repository pattern, learn more here: https://docs.nestjs.com/techniques/database
         return {
-            provider: 'cognito',
+            provider: 'google',
             providerId: userinfo.username,
             name: userinfo.name,
-            username: userinfo.email,
-            token: accessToken
+            username: userinfo.email
+            // token: accessToken
         };
     }
 }
