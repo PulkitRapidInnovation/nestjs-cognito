@@ -9,6 +9,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 
 require('dotenv').config();
 @Module({
@@ -31,10 +32,11 @@ require('dotenv').config();
             username: process.env.MYSQL_DB_USER,
             password: process.env.MYSQL_DB_PASS,
             database: process.env.MYSQL_DB_NAME,
-            entities: ['dist/entities/*{.ts,.js}'],
+            entities: [User],
             migrations: ['dist/database/migrations/*{.ts,.js}'],
             migrationsRun: true,
-            logging: true
+            logging: true,
+            synchronize: true
         }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
@@ -42,8 +44,7 @@ require('dotenv').config();
             playground: { settings: { 'request.credentials': 'include' } }
         }),
         AuthModule,
-        UsersModule,
-
+        UsersModule
     ],
     controllers: [AppController],
     providers: [AppService]

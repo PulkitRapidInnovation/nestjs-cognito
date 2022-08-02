@@ -3,6 +3,8 @@ import { Strategy } from 'passport-oauth2';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { UsersService } from 'src/users/users.service';
+import { userInfo } from 'os';
 
 @Injectable()
 export class CognitoOauthStrategy extends PassportStrategy(
@@ -11,7 +13,10 @@ export class CognitoOauthStrategy extends PassportStrategy(
 ) {
     private domain: string;
 
-    constructor(configService: ConfigService) {
+    constructor(
+        configService: ConfigService,
+        private readonly usersService: UsersService
+    ) {
         super({
             authorizationURL: CognitoOauthStrategy.authorizationUrl(
                 configService.get<string>('OAUTH_COGNITO_DOMAIN') as string
@@ -69,6 +74,18 @@ export class CognitoOauthStrategy extends PassportStrategy(
             '🚀 ~ file: cognito-oauth.strategy.ts ~ line 64 ~ validate ~ userinfo',
             userinfo
         );
+        let user = await this.usersService.findOne({
+            where: { provider: 'google', sub: userinfo?.sub }
+        });
+        if (!user) {
+            user = await this.usersService.create({
+                provider: 'google',
+                sub: userinfo?.sub,
+                username: userinfo?.username,
+                email: userinfo?.email,
+                isEmailVerified: userinfo?.email_verified
+            });
+        }
 
         // Here a custom User object is returned. In the the repo I'm using a UsersService with repository pattern, learn more here: https://docs.nestjs.com/techniques/database
         return {

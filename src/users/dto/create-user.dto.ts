@@ -2,7 +2,8 @@ import { Provider } from '../common/user';
 
 export class CreateUserDto {
     provider: Provider;
-    providerId: string;
+    isEmailVerified: boolean;
     username: string;
-    name: string;
+    email: string;
+    sub: string;
 }
