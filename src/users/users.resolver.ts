@@ -5,6 +5,8 @@ import { Resolver, Query } from '@nestjs/graphql';
 import { GqlAuthGuard } from '../auth/graphql/gql-auth.guard';
 import { CurrentUser } from '../auth/graphql/gql-auth.decorator';
 import { User } from 'src/entities/user.entity';
+import { Auth, GetUserId } from 'src/auth/jwt/jwt.guard';
+import { UserResponse } from './resolver-type/user.resolver-type';
 
 @Resolver((_of) => User)
 export class UsersResolver {
@@ -19,14 +21,13 @@ export class UsersResolver {
     //     return this.usersService.findAll(params);
     // }
 
-    @Query((_returns) => User)
-    @UseGuards(GqlAuthGuard)
-    whoAmI(@CurrentUser() user: User) {
+    @Query(() => UserResponse, { name: 'Me' })
+    @Auth()
+    async me(@GetUserId() user) {
         console.log(
-            '🚀 ~ file: users.resolver.ts ~ line 26 ~ UsersResolver ~ whoAmI ~ user',
+            '🚀 ~ file: users.resolver.ts ~ line 26 ~ UsersResolver ~ me ~ user',
             user
         );
-
-        return this.usersService.findOne({ where: { id: user.id } });
+        return this.usersService.findOne({ where: { sub: user?.sub } });
     }
 }

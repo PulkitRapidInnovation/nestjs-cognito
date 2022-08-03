@@ -30,22 +30,10 @@ export class CognitoOauthController {
         if (!req.user) {
             return 'No user for Google';
         }
+        // return res.redirect('/user/me');
         return {
             message: 'User Info from Google',
             user: req.user
         };
     }
-
-    // @UseGuards(JwtAuthGuard)
-    // @Get('profile')
-    // public async showProfile(@Req() req: Request, @Res() res: Response) {
-    //     console.log(res);
-    //     return;
-    // }
-
-    // @Get('current')
-    // @UseGuards(AuthorizerGuard)
-    // getCurrentUser() {
-    //     return this.cognitoService.getCurrentUser();
-    // }
 }

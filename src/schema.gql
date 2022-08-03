@@ -2,25 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: String!
-  username: String!
-  email: String!
-  password: String!
-  phone: String!
-  createdDate: DateTime!
-  updatedDate: DateTime!
-  isEmailVerified: Boolean!
-  provider: String!
-  sub: String!
+type UserResponse {
+  id: String
+  username: String
+  isEmailVerified: Boolean
+  email: String
+  sub: String
+  createdDate: String
+  updatedDate: String
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type Query {
   sayHello: String!
-  whoAmI: User!
+  Me: UserResponse!
 }
