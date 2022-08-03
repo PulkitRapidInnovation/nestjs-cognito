@@ -24,20 +24,33 @@ require('dotenv').config();
         ConfigModule.forRoot({
             isGlobal: true
         }),
-
         TypeOrmModule.forRoot({
-            type: 'mysql',
-            host: process.env.MYSQL_DB_HOST,
-            port: Number.parseInt(process.env.MYSQL_DB_PORT),
-            username: process.env.MYSQL_DB_USER,
-            password: process.env.MYSQL_DB_PASS,
-            database: process.env.MYSQL_DB_NAME,
+            type: 'postgres',
+            host: process.env.POSTGRES_HOST,
+            port: Number.parseInt(process.env.POSTGRES_PORT),
+            username: process.env.POSTGRES_USERNAME,
+            password: process.env.POSTGRES_PASSWORD,
+            database: process.env.POSTGRES_DATABASE,
             entities: [User],
             migrations: ['dist/database/migrations/*{.ts,.js}'],
             migrationsRun: true,
             logging: true,
             synchronize: true
         }),
+
+        // TypeOrmModule.forRoot({
+        //     type: 'mysql',
+        //     host: process.env.MYSQL_DB_HOST,
+        //     port: Number.parseInt(process.env.MYSQL_DB_PORT),
+        //     username: process.env.MYSQL_DB_USER,
+        //     password: process.env.MYSQL_DB_PASS,
+        //     database: process.env.MYSQL_DB_NAME,
+        //     entities: [User],
+        //     migrations: ['dist/database/migrations/*{.ts,.js}'],
+        //     migrationsRun: true,
+        //     logging: true,
+        //     synchronize: true
+        // }),
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
